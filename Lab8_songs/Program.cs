@@ -135,15 +135,19 @@
 
     public static void SearchSong(List<string> songs, string song)
     {
-        bool found = songs.Contains(song);
+       bool found = false;
+       for(int i=0; i < songs.Count; i++)
+       {
+            found = songs[i].ToLower().Contains(song.ToLower());
 
         if( found == true)
         {
-            int position = songs.IndexOf(song);
+            int position = i;
             Console.WriteLine($"{song} Was found at index {position}");
         }
 
-        else if (found == false)
+       }
+       if (found == false)
         {
             Console.WriteLine("Song wasn't found");
         }
