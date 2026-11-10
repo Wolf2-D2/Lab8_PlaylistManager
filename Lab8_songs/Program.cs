@@ -7,7 +7,7 @@
 
         List<string> removedSong = new List<string>();
 
-
+        Console.WriteLine("Checking work with git graph");
         
 
         while (true)
