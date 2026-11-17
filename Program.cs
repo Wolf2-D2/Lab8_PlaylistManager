@@ -1,0 +1,192 @@
+﻿class program
+{
+    public static void Main(string[] args)
+    {
+        List<string> songs = new List<string>
+            {"Yellow", "Halo", "Believer"};
+
+        List<string> removedSong = new List<string>();
+
+     
+        
+
+        while (true)
+        {
+            Console.WriteLine("====Playlist Manager====");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("1.Show Playlist");
+            Console.WriteLine("2.Add song to the end");
+            Console.WriteLine("3.Insert a song at a position");
+            Console.WriteLine("4.Remove Song");
+            Console.WriteLine("5.Move song to a new position");
+            Console.WriteLine("6.Search for a song");
+            Console.WriteLine("7.Sort A to Z");
+            Console.WriteLine("8.Reverse the order");
+            Console.WriteLine("9.Quit");
+
+            Console.WriteLine("Please choose an option by #");
+            string user = Console.ReadLine();
+
+            if (user != null && user == "1")
+            {
+                Console.WriteLine("===Playlist===");
+                Console.WriteLine();
+                PrintPlaylist(songs);
+            }
+
+            else if (user != null && user == "2")
+            {
+                Console.WriteLine("What song would you like to add?");
+                string song = Console.ReadLine();
+                addSong(songs, song );
+            }
+
+            else if (user != null && user == "3")
+            {
+                Console.WriteLine("Please give us a song");
+                string song = Console.ReadLine();
+                Console.WriteLine("Please enter the position you want that song starting with position 0\n Make sure the position you are trying to insert into exists.");
+                int position = int.Parse(Console.ReadLine());
+                InsertSong(songs,song,position);
+            }
+
+            else if (user != null && user == "4")
+            {
+                Console.WriteLine("What song would you like to remove\n be careful with your spelling");
+                string song = Console.ReadLine();
+                Remove(songs,removedSong, song);
+            }
+
+            else if (user != null && user == "5")
+            {
+                Console.WriteLine("Please give us a song");
+                string song = Console.ReadLine();
+                Console.WriteLine("Please enter the position you want that song starting with position 0\n Make sure the position you are trying to insert into exists.");
+                int Newposition = int.Parse(Console.ReadLine());
+                MoveSong(songs,song,Newposition);
+            }
+
+            else if (user != null && user == "6")
+            {
+                Console.WriteLine("Please give us a song to search for");
+                string song = Console.ReadLine();
+                SearchSong(songs,song);
+            }
+
+            else if (user !=null && user == "7")
+            {
+                SortSong(songs);
+            }
+
+            else if (user != null && user == "8")
+            {
+                ReverseSong(songs);
+            }
+
+            else if (user != null && user == "9")
+            {
+                Console.WriteLine("Thanks for using our playlist manager!");
+                break;
+                
+            }
+
+            else
+            {
+                Console.WriteLine("Invalid option please try again\n Thank You");
+            }
+        }
+    }
+
+    public static void PrintPlaylist(List<string> songs)
+    {
+        int count = 0;
+        for( int i = 0; i < songs.Count; i++)
+        {
+            Console.WriteLine(songs[i]);
+            Console.WriteLine();
+            count++;
+        }
+        Console.WriteLine($"Total songs: {count}");
+    }
+
+    public static void addSong(List<string> songs, string song)
+    {
+        if (songs.Contains(song))
+        {
+            Console.WriteLine("Already contains this song!");
+        }
+        else
+        {
+            songs.Add(song);
+        }
+        
+    }
+
+    public static void InsertSong(List<string> songs, string song, int position)
+    {
+        songs.Insert(position, song);
+    }
+
+    public static void Remove(List<string> songs, List<string> removedSong, string song)
+    {
+        if (songs.Contains(song))
+        {
+            removedSong.Add(song);
+            songs.Remove(song);
+        }
+        else
+        {
+            Console.WriteLine("This song wasn't in the playlist");
+        }
+        
+    }
+
+    public static void MoveSong(List<string> songs, string song, int Newposition)
+    {
+        if (songs.Contains(song))
+        {
+            int oldposition = songs.IndexOf(song);
+            songs.Insert(Newposition, song);
+            songs.RemoveAt(oldposition+1);
+        }
+        else
+        {
+            Console.WriteLine("It appears this song isn't in the playlist");
+        }
+        
+        
+    }
+
+    public static void SearchSong(List<string> songs, string song)
+    {
+       bool found = false;
+       for(int i=0; i < songs.Count; i++)
+       {
+            found = songs[i].ToLower().Contains(song.ToLower());
+
+        if( found == true)
+        {
+            int position = i;
+            Console.WriteLine($"{song} Was found at index {position}");
+        }
+
+       }
+       if (found == false)
+        {
+            Console.WriteLine("Song wasn't found");
+        }
+    }
+
+    public static void SortSong(List<string> songs)
+    {
+        songs.Sort();
+    }
+
+    public static void ReverseSong(List<string> songs)
+    {
+        songs.Reverse();
+    }
+
+
+}
